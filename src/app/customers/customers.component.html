@@ -1,0 +1,54 @@
+ 
+<div class="container">
+  <h2>Customer maintenance</h2>
+  <p>Add edit and delete customers</p>     
+  <a class="btn btn-primary" routerLink="/Customeredit/-1">Add</a>
+       
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>User Name</th>
+        <th>Balance</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let customer of CustomerList; let i=index;">
+        <td> {{customer.Name}}</td>
+        <td>{{customer.Username}}</td>
+        <td>{{customer.Balance}}</td>
+        <td><a class="btn btn-primary" routerLink="/Customeredit/{{customer.id}}">Edit</a>
+          <button class="btn btn-danger" (click)="delete($event,customer.id,i)">Delete</button>
+          <a class="btn btn-primary" routerLink="/invoice/{{customer.id}}">Create Invoice</a>
+          <a class="btn btn-primary" routerLink="/payment/{{customer.id}}">Create Payment</a>
+        
+        </td>
+      </tr> 
+    </tbody>
+  </table>
+</div>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Are you sure you want to delete {{DeleteCustomer.Name}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <br>
+        <button type="button" class="btn btn-danger" aria-label="Close" (click)="DeleteYes()">
+            Yes
+          </button>
+          <button type="button" class="btn btn-warning" aria-label="Close" (click)="hideChildModal()">
+              No
+            </button>
+      </div>
+    </div>
+  </div>
+</div>
+

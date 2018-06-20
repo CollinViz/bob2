@@ -1,0 +1,14 @@
+
+
+<div class="btn-group" dropdown>
+    <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+      {{selectedCustomer.Name}} <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem" *ngFor="let customer of CustomerList; let i=index;">
+          <span class="dropdown-item" (click)="selectCustomer($event,customer,i)"> {{customer.Name}}</span>
+        </li>
+    </ul>
+  </div>
+
+  

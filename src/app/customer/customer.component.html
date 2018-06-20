@@ -1,0 +1,84 @@
+<div class="container">
+    <h2>Customer {{type}}</h2> 
+    <form #CustomerForm="ngForm">
+  <div class="form-group">
+    <label for="Name">Customer Name:</label>
+    <input type="text" class="form-control" id="Name"
+    [(ngModel)]="Customerdetails.Name" name="Name"
+    required minlength="4" #name="ngModel"
+     >
+     <div *ngIf="name.invalid && (name.dirty || name.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="name.errors.minlength">
+            Name must be at least 4 characters long.
+          </div> 
+        </div>
+  </div> 
+  <div class="form-group">
+    <label for="Username">User Name:</label>
+    <input type="text" class="form-control" id="Username"
+    [(ngModel)]="Customerdetails.Username" name="Username"
+    required minlength="4" #Username="ngModel" >
+    <div *ngIf="Username.invalid && (Username.dirty || Username.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="Username.errors.required">
+              User Name is required.
+          </div>
+          <div *ngIf="Username.errors.minlength">
+              User Name must be at least 4 characters long.
+          </div> 
+        </div>
+  </div> 
+  <div class="form-group">
+    <label for="Password">Password:</label>
+    <input type="password" class="form-control" id="Password"
+    [(ngModel)]="Customerdetails.Password" name="Password" 
+    required minlength="4" #Password="ngModel">
+    <div *ngIf="Password.invalid && (Password.dirty || Password.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="Password.errors.required">
+              Password is required.
+          </div>
+          <div *ngIf="Password.errors.minlength">
+              Password must be at least 4 characters long.
+          </div> 
+        </div>
+  </div>
+  <div class="form-group">
+      <label for="Address">Address:</label>
+      <textarea type="text" class="form-control" id="Address"
+      [(ngModel)]="Customerdetails.Address" name="Address" 
+      required minlength="4" #Address="ngModel">
+      </textarea>
+      <div *ngIf="Address.invalid && (Address.dirty || Address.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="Address.errors.required">
+              Address is required.
+          </div>
+          <div *ngIf="Address.errors.minlength">
+              Address must be at least 4 characters long.
+          </div> 
+        </div>
+  </div> 
+  <div *ngIf="bshowError" class="alert alert-warning">
+      <strong>Error!</strong> {{ErrorMessage}}
+    </div> 
+  <div class="row">
+      
+      <button (click)="save($event)" 
+          class="btn btn-lg btn-primary btn-block" 
+          type="submit" [disabled]="CustomerForm.invalid">Save</button>
+      <a class="btn btn-lg btn-secondary btn-block"  routerLink="/Customer">Back</a>
+  </div>
+  
+    
+  </form>
+</div>
+ 

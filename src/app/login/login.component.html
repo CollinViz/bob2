@@ -1,0 +1,45 @@
+<div class="container">
+
+  <form class="form-signin" #UserPasswordForm="ngForm">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputUserName" class="sr-only">User name</label>
+    <input type="text" id="inputUserName" 
+            [(ngModel)]="inputUserName" name="inputUserName" class="form-control" 
+            placeholder="User name" maxlength="45" required minlength="4" autofocus
+            #UserName="ngModel">
+      <div *ngIf="UserName.invalid && (UserName.dirty || UserName.touched)"
+            class="alert alert-danger">
+
+         <div *ngIf="UserName.errors.required">
+             User name is required.
+         </div>
+         <div *ngIf="UserName.errors.minlength">
+             User name must be at least 4 characters long.
+         </div> 
+       </div>         
+            
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" 
+            [(ngModel)]="inputPassword" name="inputPassword"
+            placeholder="Password" 
+            maxlength="45" required minlength="4" 
+            #Password="ngModel">
+            <div *ngIf="Password.invalid && (Password.dirty || Password.touched)"
+            class="alert alert-danger">     
+                 <div *ngIf="Password.errors.required">
+             Password is required.
+         </div>
+         <div *ngIf="Password.errors.minlength">
+            Password must be at least 4 characters long.
+         </div> 
+       </div>
+
+        
+     
+    <button (click)="login($event)"  class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <div *ngIf="bshowError" class="alert alert-warning">
+      <strong>Error!</strong> {{ErrorMessage}}
+    </div>
+  </form>
+
+</div> <!-- /container -->

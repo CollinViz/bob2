@@ -1,0 +1,95 @@
+<div class="container">
+  <h2>Invoice a customer</h2>
+  <p>Create an invoice for a customer</p>
+  <div *ngIf="bSelectCustomer">
+    <div class="form-group">
+      <label for="Username">Select Customer:</label>
+    </div>
+    <app-listcustomers (onChangeCustomer)="customerSelected($event)"></app-listcustomers>
+     
+  </div>
+  <div *ngIf="!bSelectCustomer">
+    <h3>Customer:
+      <a class="btn btn-info" (click)="changeCustomer()">{{CustomerSeleced.Name}}</a>
+    </h3>
+    <div class="container">
+      <form #InvoiceForm="ngForm">
+        <div class="form-group">
+          <label for="Description">Description:</label>
+          <input type="text" class="form-control" id="Description" [(ngModel)]="InvoiceHeader.Description" maxlength="45" name="Description"
+            required minlength="4" #Description="ngModel">
+          <div *ngIf="Description.invalid && (Description.dirty || Description.touched)" class="alert alert-danger">
+
+            <div *ngIf="Description.errors.required">
+                Description is required.
+            </div>
+            <div *ngIf="Description.errors.minlength">
+                Description must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+        <button (click)="addLine()" class="btn btn-primary btn-lg float-left">Add Line</button>
+        <button (click)="save()" class="btn btn-success btn-lg float-right" [disabled]="InvoiceForm.invalid">Save</button>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Value</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let DetailLines of InvoiceHeader.invoicelines; let i=index;">
+              <td>
+                <input type="text" maxlength="45" class="form-control" id="Description{{i}}" [(ngModel)]="DetailLines.Description" name="Description{{i}}"
+                  required minlength="4" #sumDescription="ngModel">
+                <div *ngIf="sumDescription.invalid && (sumDescription.dirty || Description.touched)" class="alert alert-danger">
+
+                  <div *ngIf="sumDescription.errors.required">
+                    Description is required.
+                  </div>
+                  <div *ngIf="sumDescription.errors.minlength">
+                    Description must be at least 4 characters long.
+                  </div>
+                </div>
+              </td>
+              <td>
+                <input type="number" maxlength="8" class="form-control" id="Amount{{i}}" [(ngModel)]="DetailLines.Amount" name="Amount{{i}}"
+                required minlength="1" #sumAmount="ngModel" pattern="^[0-9]*$">
+                <div *ngIf="sumAmount.invalid && (sumAmount.dirty || sumAmount.touched)" class="alert alert-danger">
+
+                    <div *ngIf="sumAmount.errors.required">
+                        Amount is required.
+                    </div>
+                    <div *ngIf="sumAmount.errors.minlength">
+                        Amount must be at least 1 characters long.
+                    </div>
+                    Field needs to be numbers
+                  </div>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="delete($event,i)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">invoice Create for {{CustomerSeleced.Name}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br> Invoice Number {{InvoiceHeader.InvoiceNumber}}
+      </div>
+    </div>
+  </div>
+</div>
